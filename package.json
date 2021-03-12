@@ -1,0 +1,22 @@
+{
+  "name": "bte-roles",
+  "version": "1.0.0",
+  "description": "Reaction Roles for some BTE servers",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mebrooks01/BTE-Roles.git"
+  },
+  "author": "Mebrooks01",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mebrooks01/BTE-Roles/issues"
+  },
+  "homepage": "https://github.com/mebrooks01/BTE-Roles#readme",
+  "dependencies": {
+    "discord.js": "^12.5.1"
+  }
+}
