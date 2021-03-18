@@ -163,7 +163,7 @@ client.on('message', (message) => {
       return message.channel.send('Pwease pwovide something t-to uwuify owo')
 
     let UWU = uwuify.uwuify(toUWU)
-    message.channel.send(UWU)
+    message.channel.send(UWU, { allowedMentions: { parse: [] } })
   }
 })
 
