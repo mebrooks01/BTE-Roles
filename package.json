@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/mebrooks01/BTE-Roles#readme",
   "dependencies": {
-    "discord.js": "^12.5.1"
+    "discord.js": "^12.5.1",
+    "uwuify": "^1.0.1"
   }
 }

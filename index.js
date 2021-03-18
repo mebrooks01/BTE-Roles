@@ -1,6 +1,8 @@
 const Discord = require('discord.js')
 const client = new Discord.Client()
 const token = require('./token.json')
+const uwuifier = require('uwuify')
+const uwuify = new uwuifier()
 
 const prefix = '='
 message1 = {
@@ -23,13 +25,14 @@ message2 = {
 client.on('ready', async () => {
   console.log(`Logged in as: ${client.user.tag}`)
   client.user.setActivity('for reactions', { type: 'WATCHING' })
-
+  /*
   await client.guilds.cache
     .get(message1.guild)
     .channels.cache.get(message1.channel)
     .messages.fetch(message1.message)
+    */
 })
-
+/*
 client.on('messageReactionAdd', async (reaction, user) => {
   if (
     reaction.emoji.name == message1.reaction &&
@@ -99,7 +102,7 @@ client.on('messageReactionRemove', async (reaction, user) => {
     })
   }
 })
-
+*/
 const clean = (text) => {
   if (typeof text === 'string')
     return text
@@ -108,10 +111,32 @@ const clean = (text) => {
   else return text
 }
 client.on('message', (message) => {
-  const args = message.content.split(' ').slice(1)
+  if (message.author.bot) return
+  msg = message.content.toLowerCase()
 
-  if (message.content.startsWith(`${prefix}eval`)) {
-    if (message.author.id !== '496463728661889026') return
+  if (msg === 'uwu' || msg === 'owo') {
+    message.reply('OWO I wuv youwu')
+  }
+
+  if (!message.content.startsWith(prefix)) return
+  const args = message.content.slice(prefix.length).trim().split(/ +/)
+  const command = args.shift().toLowerCase()
+
+  if (command === 'help') {
+    message.channel.send({
+      embed: {
+        title: 'Help',
+        description:
+          '**Ping:** Ping the bot and see how bad its ping is\n**UWUify:** Convert normal text to uwu text',
+        timestamp: new Date(),
+        thumbnail: {
+          url: 'https://cdn.discordapp.com/emojis/815660709320589313.png?v=1',
+        },
+      },
+    })
+  }
+
+  if (command === 'eval' && message.author.id == '496463728661889026') {
     try {
       const code = args.join(' ')
       let evaled = eval(code)
@@ -122,6 +147,23 @@ client.on('message', (message) => {
     } catch (err) {
       message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``)
     }
+  }
+
+  if (command === 'ping') {
+    message.channel.send(
+      `🏓Latency is ${
+        message.createdTimestamp - message.createdTimestamp
+      }ms. API Latency is ${Math.round(client.ws.ping)}ms`,
+    )
+  }
+
+  if (command === 'uwuify') {
+    toUWU = message.content.slice(command.length + 1)
+    if (toUWU == '')
+      return message.channel.send('Pwease pwovide something t-to uwuify owo')
+
+    let UWU = uwuify.uwuify(toUWU)
+    message.channel.send(UWU)
   }
 })
 
