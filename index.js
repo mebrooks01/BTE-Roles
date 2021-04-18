@@ -25,14 +25,13 @@ message2 = {
 client.on('ready', async () => {
   console.log(`Logged in as: ${client.user.tag}`)
   client.user.setActivity('for reactions', { type: 'WATCHING' })
-  /*
+
   await client.guilds.cache
     .get(message1.guild)
     .channels.cache.get(message1.channel)
     .messages.fetch(message1.message)
-    */
 })
-/*
+
 client.on('messageReactionAdd', async (reaction, user) => {
   if (
     reaction.emoji.name == message1.reaction &&
@@ -102,7 +101,7 @@ client.on('messageReactionRemove', async (reaction, user) => {
     })
   }
 })
-*/
+
 const clean = (text) => {
   if (typeof text === 'string')
     return text
