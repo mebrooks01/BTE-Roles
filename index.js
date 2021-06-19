@@ -3,6 +3,7 @@ const client = new Discord.Client()
 const token = require('./token.json')
 const uwuifier = require('uwuify')
 const uwuify = new uwuifier()
+const fs = require('fs')
 
 const prefix = '='
 message1 = {
@@ -103,6 +104,17 @@ client.on('messageReactionRemove', async (reaction, user) => {
   }
 })
 */
+
+client.on('guildMemberAdd', (member) => {
+  if (member.guild.id == '727861352101576714') {
+    member.roles.add('845449019073363968').catch((error) => {
+      client.channels.cache
+        .get('796886243324854314')
+        .send(`Failed to add intern role to <@${member.id}>`)
+    })
+  }
+})
+
 const clean = (text) => {
   if (typeof text === 'string')
     return text
@@ -110,6 +122,7 @@ const clean = (text) => {
       .replace(/@/g, '@' + String.fromCharCode(8203))
   else return text
 }
+
 client.on('message', (message) => {
   if (message.author.bot) return
   msg = message.content.toLowerCase()
@@ -143,10 +156,22 @@ client.on('message', (message) => {
 
       if (typeof evaled !== 'string') evaled = require('util').inspect(evaled)
 
-      message.channel.send(clean(evaled), { code: 'xl' })
+      fs.writeFile('output.log', clean(evaled), function (err) {
+        if (err) {
+          return console.log(err)
+        }
+      })
     } catch (err) {
-      message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``)
+      fs.writeFile('output.log', clean(err), function (err) {
+        if (err) {
+          return console.log(err)
+        }
+      })
     }
+
+    message.channel.send('Output', {
+      files: ['./output.log'],
+    })
   }
 
   if (command === 'ping') {
@@ -167,4 +192,4 @@ client.on('message', (message) => {
   }
 })
 
-client.login(token.token)
+client.login(token)
