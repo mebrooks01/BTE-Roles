@@ -1,8 +1,6 @@
 const Discord = require('discord.js')
 const client = new Discord.Client()
 const token = require('./token.json')
-const uwuifier = require('uwuify')
-const uwuify = new uwuifier()
 const fs = require('fs')
 
 const prefix = '='
